@@ -3,11 +3,11 @@ module.exports = function (mongoose) {
     // let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
     mongoose.connect("mongodb://localhost/mongoHeadlines");
 
-    let db = mongoose.connection;
-    db.on("error", function (error) {
+    let dbConnect = mongoose.connection;
+    dbConnect.on("error", function (error) {
         console.log("Mongoose Error: ", error);
     });
-    db.once('open', function () {
+    dbConnect.once('open', function () {
         console.log('You are connected to the DB');
     });
 }

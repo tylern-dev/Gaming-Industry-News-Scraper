@@ -9,7 +9,8 @@ let notesSchema = new Schema({
         type: String
     },
     submitDate:{
-        type: Date.now
+        type: Date,
+        default: Date.now
     }
 });
 

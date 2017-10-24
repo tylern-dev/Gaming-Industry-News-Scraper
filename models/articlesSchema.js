@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let articleSchema = new Schema({
+let ArticleSchema = new Schema({
     headline:{
         type: String,
         required: true
@@ -12,12 +12,12 @@ let articleSchema = new Schema({
     url: {
         type:String
     },
-    notes:[{
+    note:[{
         //refering to the object ID of the Notes schema and storing it in this array
         type: Schema.Types.ObjectId,
-        ref: "Notes"
+        ref: "Note"
     }]
 });
 
-let Article = mongoose.model('Article', articleSchema);
+var Article = mongoose.model('Article', ArticleSchema);
 module.exports = Article;

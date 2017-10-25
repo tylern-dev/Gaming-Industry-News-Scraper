@@ -40,43 +40,39 @@ mongoose.Promise = global.Promise;
 
 //routes
 app.get('/' , (req, res) => {
-    let newsURL = "https://www.nytimes.com/section/technology?action=click&pgtype=Homepage&region=TopBar&module=HPMiniNav&contentCollection=Tech&WT.nav=page"
+    let newsURL = "https://www.gamespot.com/news/"
     request(newsURL, (error, response, html) => {
         let $ = cheerio.load(html);
         let articleArray = [];
     
-        $('article.story').each(function(i, element) {
+        $('article.media-article').each(function(i, element) {
             // let storyID = $('.story').parent().attr('id');
-            let href = $('.story-body', this).children('a').attr('href');
+            let href = $(element).children('a').attr('href');
             
             // let href = $('a', this).attr('href');
-            let headline = $('.headline', this).text().trim();
-            let summary = $('.summary', this).text().trim();
-            let byAuthor = $('.byline', this).text().trim();
-            let thumbnail = $('.wide-thumb', this).children('img').attr('src');
+            let headline = $(element).children('a').attr('data-event-title');
+            // let summary = $('.summary', this).text().trim();
+            // let byAuthor = $('.byline', this).text().trim();
+            let thumbnail = $(element).children('a').children('figure.media-figure').children('.media-img').children('img').attr('src');
     
-            isValidArticle(href, headline, summary, byAuthor, thumbnail, articleArray);
-            
-            
-            db.Article.create(articleArray).then(function(){
-                res.send('Scrape Complete')
-            }).catch( error => res.json(error))
-
+            isValidArticle(href, headline, thumbnail, articleArray);
         });
+
+        db.Article.create(articleArray).then(function(){
+            res.send('Scrape Complete')
+        }).catch( error => res.json(error))
         console.log(articleArray)
         // res.render('index', {data: articleArray})
     });  
 });
 
-function isValidArticle(href, headline, summary, byAuthor, thumbnail, articleArray){
-    if (href === undefined || headline === undefined || summary === undefined || byAuthor === undefined || thumbnail === undefined){
+function isValidArticle(href, headline, thumbnail, articleArray){
+    if (href === undefined || headline === undefined ||  thumbnail === undefined){
         console.log('undefined');
     } else {
         articleArray.push({
             href: href,
             headline: headline,
-            summary: summary,
-            author: byAuthor,
             pic: thumbnail
         });
     }

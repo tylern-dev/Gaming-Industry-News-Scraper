@@ -8,9 +8,18 @@ let ArticleSchema = new Schema({
     },
     summary: {
         type: String
+
     },
-    url: {
+    href: {
         type:String
+
+    },
+    author: {
+        type:String
+
+    },
+    pic: {
+        type: String
     },
     note:[{
         //refering to the object ID of the Notes schema and storing it in this array

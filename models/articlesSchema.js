@@ -2,9 +2,12 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let ArticleSchema = new Schema({
-    headline:{
+    storyID: {
         type: String,
-        required: true
+        unique: true,
+    },
+    headline:{
+        type: String
     },
     summary: {
         type: String
@@ -16,10 +19,12 @@ let ArticleSchema = new Schema({
     },
     author: {
         type:String
-
     },
     pic: {
         type: String
+    },
+    saved: {
+        type: Boolean
     },
     note:[{
         //refering to the object ID of the Notes schema and storing it in this array

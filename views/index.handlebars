@@ -1,0 +1,23 @@
+<div class="row">
+    {{#each data}}
+    <div class="col s12 m6">
+        <div class="card medium" id={{storyID}}>
+            <div class="card-image">
+                <img src={{pic}} >
+                <a href={{href}} target="_blank">
+                    <span class="card-title">{{headline}}</span>
+                </a>
+            </div>
+            <div class="card-content">
+                <p>{{summary}}</p>
+            </div>
+            <div class="card-action">
+                
+                <button type="submit" class="waves-effect waves-light btn" id="save-btn" data-articleId={{storyID}} data-articlePic={{pic}} data-articleLink={{href}} data-articleHeadline="{{headline}}" data-articleSummary="{{summary}}">Save Article</button>
+
+                <a href={{href}} target="_blank" class="view-article">View Article</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

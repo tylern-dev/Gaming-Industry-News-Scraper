@@ -1,0 +1,16 @@
+/* NAV BAR */
+nav{
+    background-color: #47e06d;
+}
+
+form{
+    display: inline-block;
+}
+
+.card-title{
+    text-shadow: 2px 2px #2e282e;
+}
+.card-title:hover{
+    text-decoration: underline;
+}
+

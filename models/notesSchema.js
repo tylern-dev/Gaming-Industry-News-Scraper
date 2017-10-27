@@ -9,10 +9,11 @@ let notesSchema = new Schema({
         type: String
     },
     submitDate:{
-        type: Date.now
+        type: Date,
+        default: Date.now
     }
 });
 
-let Note = mongoose.model("Notes", notesSchema);
+let Note = mongoose.model("Note", notesSchema);
 
 module.exports = Note;

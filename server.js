@@ -2,69 +2,33 @@ let express = require('express');
 let exphbs = require('express-handlebars');
 let mongoose = require('mongoose');
 let bodyParser = require('body-parser');
-let cheerio = require('cheerio');
-let request = require('request');
-
-//db models
-let articles = require('./models/articlesSchema.js')
-
-let port = process.env.PORT || 3000;
+let methodOverride = require('method-override')
+let port = process.env.PORT || 8080;
 
 let app = express();
 
-// // Setup the Mongoose connections and DB
-// // let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-// mongoose.connect( "mongodb://localhost/mongoHeadlines");
 
-// let db = mongoose.connection;
-// db.on("error", function(error) {
-//     console.log("Mongoose Error: ", error);
-//   });
-// db.once('open', function(){
-//     console.log('You are connected to the DB');
-// });
+
+app.use(express.static('./public'));
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+// Sets up the Express app to handle data parsing - MIDDLEWARE
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
 
 // require db connection
-require('./config/connection.js')(mongoose);
+require('./config/connection')(mongoose);
+
 
 //routes
 require('./controllers/routes.js')(app);
-
-/* CHEERIO SCRAPER */
-let newsURL = "https://www.nytimes.com/section/technology?action=click&pgtype=Homepage&region=TopBar&module=HPMiniNav&contentCollection=Tech&WT.nav=page"
-request(newsURL, (error, response, html) => {
-    let $ = cheerio.load(html);
-    let articleArray = [];
-
-    $('article.story').each(function(i, element) {
-        var href = $('.story-body', this).children('a').attr('href');
-        
-        // var href = $('a', this).attr('href');
-        var headline = $('.headline', this).text().trim();
-        var summary = $('.summary', this).text().trim();
-        var byAuthor = $('.byline', this).text().trim();
-        var thumbnail = $('.wide-thumb', this).children('img').attr('src');
-
-        isValidArticle(href, headline, summary, byAuthor, thumbnail, articleArray);
-    });
-    console.log(articleArray)
-});
-
-function isValidArticle(href, headline, summary, byAuthor, thumbnail, articleArray){
-    if (headline === undefined || summary === undefined || byAuthor === undefined || thumbnail === undefined){
-        console.log('undefined');
-    } else {
-        articleArray.push({
-            href: href,
-            headline: headline,
-            summary: summary,
-            author: byAuthor,
-            pic: thumbnail
-        });
-    }
-};
-
-/* *************** */
+require('./controllers/notes-routes')(app);
 
 
 //start the server and listen
@@ -74,4 +38,4 @@ app.listen(port, (err, result) => {
     } else {
         console.log(`you are connected on port ${port}`)
     }
-})
+});

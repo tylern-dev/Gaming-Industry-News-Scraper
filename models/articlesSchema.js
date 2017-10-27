@@ -1,23 +1,37 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let articleSchema = new Schema({
-    headline:{
+let ArticleSchema = new Schema({
+    storyID: {
         type: String,
-        required: true
+        unique: true,
+    },
+    headline:{
+        type: String
     },
     summary: {
         type: String
+
     },
-    url: {
+    href: {
+        type:String
+
+    },
+    author: {
         type:String
     },
-    notes:[{
+    pic: {
+        type: String
+    },
+    saved: {
+        type: Boolean
+    },
+    note:[{
         //refering to the object ID of the Notes schema and storing it in this array
         type: Schema.Types.ObjectId,
-        ref: "Notes"
+        ref: "Note"
     }]
 });
 
-let Article = mongoose.model('Article', articleSchema);
+var Article = mongoose.model('Article', ArticleSchema);
 module.exports = Article;

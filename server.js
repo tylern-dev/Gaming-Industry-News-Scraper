@@ -4,12 +4,12 @@ let mongoose = require('mongoose');
 let bodyParser = require('body-parser');
 let methodOverride = require('method-override')
 let port = process.env.PORT || 8080;
-
+let path = require('path');
 let app = express();
 
 
 
-app.use(express.static('./public'));
+app.use(express.static(path.join(__dirname,'./public')));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
@@ -23,12 +23,12 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(methodOverride('_method'));
 
 // require db connection
-require('./config/connection')(mongoose);
+require(path.join(__dirname, './config/connection'))(mongoose);
 
 
 //routes
-require('./controllers/routes.js')(app);
-require('./controllers/notes-routes')(app);
+require(path.join(__dirname, './controllers/routes.js'))(app);
+require(path.join(__dirname, './controllers/notes-routes'))(app);
 
 
 //start the server and listen

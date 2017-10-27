@@ -1,11 +1,10 @@
-
+let path = require('path');
 const cheerio = require('cheerio');
 const request = require('request');
-const db = require('../models/index.js')
+const db = require(path.join(__dirname,'../models/index.js'));
 
 
 module.exports = function(app){
-    //
     app.get('/' , (req, res) => {
         let newsURL = "https://www.gamespot.com/news/"
         request(newsURL, (error, response, html) => {

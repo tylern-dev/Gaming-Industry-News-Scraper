@@ -1,4 +1,5 @@
-let db = require('../models/index')
+let path = require('path');
+let db = require(path.join(__dirname,'../models/index'));
 
 module.exports = function(app){
 

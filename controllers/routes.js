@@ -2,11 +2,13 @@ let path = require('path');
 const cheerio = require('cheerio');
 const request = require('request');
 const db = require(path.join(__dirname,'../models/index.js'));
+const fs = require('fs');
 
 
 module.exports = function(app){
+
     app.get('/' , (req, res) => {
-        let newsURL = "https://www.gamespot.com/news/"
+        let newsURL = "http://www.gamespot.com/news/"
         request(newsURL, (error, response, html) => {
             let $ = cheerio.load(html);
             let articleArray = [];
@@ -19,6 +21,7 @@ module.exports = function(app){
                 let thumbnail = $(element).children('a').children('figure.media-figure').children('.media-img').children('img').attr('src');
                 isValidArticle(storyID, href, headline, summary, thumbnail, articleArray);
             });
+            fs.writeFile(path.join(__dirname, "../articles.json"), articleArray);
             res.render('index', {data: articleArray})
         });  
     });

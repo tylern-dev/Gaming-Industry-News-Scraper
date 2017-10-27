@@ -5,7 +5,7 @@
             url:'/get-articles',
             method:'GET'
         }).done((data)=>{
-            console.log('')
+            console.log('complete')
         })
     })
 

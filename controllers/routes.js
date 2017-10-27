@@ -38,11 +38,8 @@ module.exports = function(app){
     app.delete('/api/delete/:id', (req, res) =>{
         let articleID = req.params.id;
         console.log(articleID)
-        db.Article.remove({_id: articleID}, (err, result)=>{
-            if(err){
-                console.log("Delete error: ", err)
-            }
-        }).then(()=>res.redirect('/saved-articles'));
+        db.Article.remove({_id: articleID})
+            .then(()=>res.redirect('/saved-articles'));
     })
 
     app.post('/api/save-article', (req, res)=>{

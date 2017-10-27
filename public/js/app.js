@@ -40,4 +40,6 @@
     //     })
     // })
 
+    console.log('hello world')
+
 }());

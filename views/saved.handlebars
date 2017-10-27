@@ -5,7 +5,7 @@
                 <div class="card medium" id={{storyID}}>
                     <div class="card-image">
                         <img src={{pic}} >
-                        <a href="{{href}}">
+                        <a href={{href}} target="_blank">
                             <span class="card-title">{{headline}}</span>
                         </a>
                     </div>
@@ -13,7 +13,7 @@
                         <p>{{summary}}</p>
                     </div>
                     <div class="card-action">
-                        <a href="/notes" class="waves-effect waves-light btn">Notes</a>
+                        <a href="/notes/{{_id}}" class="waves-effect waves-light btn">Notes</a>
                         <a href={{href}} target="_blank">View Article</a>
                         <form action="/api/delete/{{_id}}?_method=DELETE" method="POST" class="right">
                             <button type="submit" class="delete-article ">Delete</button>

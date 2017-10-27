@@ -3,9 +3,11 @@ let exphbs = require('express-handlebars');
 let mongoose = require('mongoose');
 let bodyParser = require('body-parser');
 let methodOverride = require('method-override')
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 8080;
 
 let app = express();
+
+
 
 app.use(express.static('./public'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -23,7 +25,6 @@ app.use(methodOverride('_method'));
 // require db connection
 require('./config/connection')(mongoose);
 
-mongoose.Promise = global.Promise;
 
 //routes
 require('./controllers/routes.js')(app);

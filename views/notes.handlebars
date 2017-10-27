@@ -1,1 +1,70 @@
-<h1>notes page</h1>
+ {{! this allows us to change the path to the styles page. Overrides the head on main.handlebars}}
+ {{#> head-block}}
+      <link rel="stylesheet" href="../styles/style.css">
+{{/head-block}}
+
+    {{#if error}}
+        alert(error)
+    {{/if}}
+
+
+    <h3>{{data.headline}}</h3>
+    <p>{{data.summary}}</p>
+    <a href={{data.href}}>View Article</a>
+
+    
+    
+   
+   
+    {{!MODAL FOR ADDING NEW NOTE}}
+    <div>
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add Comment</a>
+    </div>
+
+    {{!-- {{#each this}}
+        {{#note}}
+            <span>{{author}}</span>
+            <p>{{comment}}</p>
+        {{/note}}
+    {{/each}} --}}
+    
+    {{#each this}}
+        {{#note}}
+    <div class="col s12 m7">
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <b>By: {{author}}</b>
+                    <p>{{comment}}</p>
+                </div>
+                {{!-- <div class="card-action">
+                    <a href="#">This is a link</a>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+        {{/note}}
+    {{/each}}
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <div class="input-field col s6">
+            <input type="text" id="author">
+            <label for="author">Name</label>
+            <textarea name="note" id="note" cols="300" rows="200" data-article="{{data._id}}"></textarea>
+            <label for="note">Note</label>
+        </div>
+        <button type="submit" class="btn submit-btn" >Submit</button>
+    </div>
+</div>
+
+
+{{! this allows us to change the path to the js file}}
+{{#> scripts-block}}
+      <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="../js/note-app.js"></script>
+{{/scripts-block}}

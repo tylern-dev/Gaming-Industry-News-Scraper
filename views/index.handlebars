@@ -1,6 +1,9 @@
-<form action="/get-articles" method="get">
-    <button type="submit" class="btn" id="get-articles">Get New Articles</button>
-</form>
+
+<div class="get-article-btn">
+    <form action="/get-articles" method="get">
+        <button type="submit" class="btn" id="get-articles">Get New Articles</button>
+    </form>
+</div>
 
 <div class="row">
     {{#each data}}
@@ -17,8 +20,13 @@
             </div>
             <div class="card-action">
                 
-                <button type="submit" class="waves-effect waves-light btn" id="save-btn" data-articleId={{storyID}} data-articlePic={{pic}} data-articleLink={{href}} data-articleHeadline="{{headline}}" data-articleSummary="{{summary}}">Save Article</button>
-
+                {{#if saved}}
+                    <button type="submit" class="waves-effect waves-light btn disabled" id="save-btn" data-articleid={{_id}}>Saved</button>
+                {{else}}
+                <form action="/api/save-article/{{_id}}?_method=PUT" method="POST" >
+                    <button type="submit" class="waves-effect waves-light btn" id="save-btn" data-articleid={{_id}}>Save Article</button>
+                </form>
+                {{/if}}
                 <a href={{href}} target="_blank" class="view-article">View Article</a>
             </div>
         </div>

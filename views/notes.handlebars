@@ -10,12 +10,8 @@
 
     <h3>{{data.headline}}</h3>
     <p>{{data.summary}}</p>
-    <a href={{data.href}}>View Article</a>
+    <a href={{data.href}} class="right">View Article</a>
 
-    
-    
-   
-   
     {{!MODAL FOR ADDING NEW NOTE}}
     <div>
         <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add Comment</a>
@@ -36,6 +32,10 @@
                 <div class="card-content">
                     <b>By: {{author}}</b>
                     <p>{{comment}}</p>
+                    <form action="/api/notes/{{_id}}?_method=DELETE" method="post" class="right">
+                        
+                        <button type="submit" class="btn-floating red "><i class="material-icons left">delete</i></button>
+                    </form>
                 </div>
                 {{!-- <div class="card-action">
                     <a href="#">This is a link</a>
@@ -49,10 +49,8 @@
 <div id="modal1" class="modal">
     <div class="modal-content">
         <div class="input-field col s6">
-            <input type="text" id="author">
-            <label for="author">Name</label>
+            <input type="text" id="author" placeholder="Name">
             <textarea name="note" id="note" cols="300" rows="200" data-article="{{data._id}}"></textarea>
-            <label for="note">Note</label>
         </div>
         <button type="submit" class="btn submit-btn" >Submit</button>
     </div>

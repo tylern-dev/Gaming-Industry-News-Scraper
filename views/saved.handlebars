@@ -15,7 +15,7 @@
                     <div class="card-action">
                         <a href="/notes/{{_id}}" class="waves-effect waves-light btn">Notes</a>
                         <a href={{href}} target="_blank">View Article</a>
-                        <form action="/api/delete/{{_id}}?_method=DELETE" method="POST" class="right">
+                        <form action="/api/delete/{{_id}}?_method=PUT" method="POST" class="right">
                             <button type="submit" class="delete-article ">Delete</button>
                         </form>
                         

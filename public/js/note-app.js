@@ -24,6 +24,7 @@
             data: data
         }).done((data) => {
             $('.modal').modal()
+            location.reload()
             console.log('DATATATATATA',data)
         });
     })

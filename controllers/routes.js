@@ -20,7 +20,7 @@ module.exports = function(app){
             .catch((error) => res.send(error))
             // once deleted scrape the page
             .then(() => {
-                let newsURL = "http://www.gamespot.com/news/"
+                let newsURL = "https://www.polygon.com/news/"
                 request(newsURL, (error, response, html) => {
                     let $ = cheerio.load(html);
                     let articleArray = [];

@@ -1,3 +1,4 @@
+require('dotenv').config();
 let express = require('express');
 let exphbs = require('express-handlebars');
 let mongoose = require('mongoose');

@@ -1,7 +1,7 @@
 # Article Scraper
 This application scrapes a given website and stores the data in MongoDB which also allows for the user to make notes or comments about the scraped article.
 
-[App Demo](https://article-scraper-geqwqywuru.now.sh/)
+[App Demo](https://article-scraper-ptersxitqd.now.sh/)
 
 
 ## Getting Started

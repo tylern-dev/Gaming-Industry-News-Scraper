@@ -1,7 +1,6 @@
 # Article Scraper
-
 This application scrapes a given website and stores the data in MongoDB which also allows for the user to make notes or comments about the scraped article.
----------
+
 
 ## Getting Started
 

@@ -2,3 +2,4 @@ node_modules
 *.log
 todo.txt
 routes_test.js
+.env

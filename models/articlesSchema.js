@@ -2,16 +2,17 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let ArticleSchema = new Schema({
-    storyID: {
-        type: String,
-        unique: true,
-    },
+    
     headline:{
-        type: String
+        type: String,
+        unique: true
     },
     summary: {
         type: String
 
+    },
+    publish_date:{
+        type: String
     },
     href: {
         type:String

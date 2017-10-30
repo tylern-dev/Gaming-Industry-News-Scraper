@@ -3,7 +3,8 @@
 module.exports = function (mongoose) {
     // Setup the Mongoose connections and DB
     
-    let MONGODB_URI = process.env.MONGO_DB || "mongodb://localhost/mongoHeadlines";
+    // let MONGODB_URI = process.env.MONGO_DB || "mongodb://localhost/mongoHeadlines";
+    let MONGODB_URI = "mongodb://localhost/mongoHeadlines"
     mongoose.connect(MONGODB_URI);
     
         let dbConnect = mongoose.connection;

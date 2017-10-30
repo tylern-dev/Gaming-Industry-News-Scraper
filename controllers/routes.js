@@ -20,18 +20,23 @@ module.exports = function(app){
             .catch((error) => res.send(error))
             // once deleted scrape the page
             .then(() => {
-                let newsURL = "https://www.gamespot.com/news/"
+                let newsURL = "http://www.gamesradar.com/news/games/"
                 request(newsURL, (error, response, html) => {
                     let $ = cheerio.load(html);
                     let articleArray = [];
+                    // console.log(html)
+                    
+
                 
-                    $('article.media-article').each(function(i, element) {
-                        let storyID = $(element).children('a').attr('data-event-guid');
+                    $('div.listingResult').each(function(i, element) {
+                        
                         let href = $(element).children('a').attr('href');
-                        let headline = $(element).children('a').attr('data-event-title');
-                        let summary = $(element).children('a').children('.media-body').children('p.media-deck').text().trim();
-                        let thumbnail = $(element).children('a').children('figure.media-figure').children('.media-img').children('img').attr('src');
-                        isValidArticle(storyID, href, headline, summary, thumbnail, articleArray);
+                        let headline = $(element).children('a').children('article.search-result').children('div.content').children('header').children('h3').text().trim();
+                        let thumbnail = $(element).children('a').children('article.search-result').children('div.image').children('figure').data('original');
+                        let publish_date = $(element).children('a').children('article.search-result').children('div.content').children('header').children('p.byline').children('.published-date').attr('datetime');
+                        let author = $(element).children('a').children('article.search-result').children('div.content').children('header').children('p.byline').children('span.by-author').children('span').text().trim();
+                        // let thumbnail = $(element).children('div.c-entry-box--compact').children('a').children('.c-entry-box--compact__image').children('noscript').children('img').attr('src')
+                        isValidArticle( href, headline, publish_date, thumbnail, author, articleArray);
                     });
                     // save scrape to the db
                     db.Article.create(articleArray)
@@ -73,16 +78,16 @@ module.exports = function(app){
     });   
 }
 
-function isValidArticle(storyID, href, headline, summary, thumbnail, articleArray){
-    if (storyID === undefined || href === undefined || headline === undefined || summary === undefined || thumbnail === undefined){
-        console.log('undefined');
+function isValidArticle(href, headline, publish_date, thumbnail, author,  articleArray){
+    if (href === undefined || headline === undefined || publish_date === undefined || thumbnail === undefined || author === undefined){
+        console.log('skipped blank article');
     } else {
         articleArray.push({
-            storyID: storyID,
-            href: `https://www.gamespot.com${href}`,
+            href: href,
             headline: headline,
-            summary: summary,
+            publish_date: publish_date,
             pic: thumbnail,
+            author: author,
             saved: false
         });
     }

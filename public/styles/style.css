@@ -7,12 +7,21 @@ form{
     display: inline-block;
 }
 
+
+
 .card-title{
+
     text-shadow: 2px 2px #2e282e;
+}
+.card-title>a{
+    color: #fff;
 }
 .card-title:hover{
     text-decoration: underline;
 }
+
+
+
 
 .get-article-btn{
     margin-top: .5rem;
